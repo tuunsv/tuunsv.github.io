@@ -1,0 +1,148 @@
+
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>CV - [Lê Trịnh Tú Nữ]</title>
+  <style>
+    :root{
+      --accent:#0f766e;
+      --muted:#666;
+      --bg:#f7faf9;
+      --card:#ffffff;
+      --radius:14px;
+      --max:900px;
+      --gap:20px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    html,body{height:100%;margin:0;background:var(--bg);color:#111}
+    .wrap{max-width:var(--max);margin:28px auto;padding:24px}
+    .card{background:var(--card);border-radius:var(--radius);box-shadow:0 8px 30px rgba(2,6,23,0.08);overflow:hidden}
+
+    .grid{display:grid;grid-template-columns:320px 1fr;gap:var(--gap)}
+
+    /* SIDEBAR */
+    .side{background:linear-gradient(180deg,rgba(15,118,110,0.06),transparent 40%);padding:28px}
+    .photo-wrap{width:170px;height:170px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:6px solid rgba(255,255,255,0.85);box-shadow:0 6px 18px rgba(15,118,110,0.08)}
+    .photo{width:100%;height:100%;object-fit:cover;display:block}
+    .name{font-size:20px;font-weight:700;text-align:center;margin:8px 0}
+    .role{font-size:13px;color:var(--muted);text-align:center;margin-bottom:14px}
+    .contact{font-size:13px;color:var(--muted);line-height:1.6}
+    .section-title{font-size:12px;color:var(--accent);letter-spacing:1px;margin:18px 0 8px;font-weight:700}
+    .pill{display:inline-block;background:rgba(15,118,110,0.09);padding:6px 10px;border-radius:999px;font-size:12px;margin:6px 6px 0 0}
+
+    /* MAIN */
+    .main{padding:28px}
+    .summary{font-size:14px;color:#24303a;line-height:1.6}
+    .job{margin-bottom:14px}
+    .job h4{margin:0;font-size:15px}
+    .meta{font-size:13px;color:var(--muted)}
+    .list{margin:8px 0 0;padding-left:18px}
+
+    /* responsive */
+    @media (max-width:840px){
+      .grid{grid-template-columns:1fr;}
+      .side{display:flex;flex-direction:row;gap:16px;align-items:center;padding:18px}
+      .photo-wrap{width:80px;height:80px;border-width:4px}
+      .main{padding:18px}
+    }
+
+    /* Helper editable highlight (for authoring only) */
+    .editable{outline: none}
+    .hint{font-size:12px;color:#9ca3af}
+
+    /* Print optimizations */
+    @media print{
+      body{background:white}
+      .wrap{margin:0;padding:0}
+      .card{box-shadow:none;border-radius:0}
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <div class="grid">
+        <!-- SIDEBAR: edit info here -->
+        <aside class="side">
+          <!-- Portrait: placed at ./image/3.jpg by default -->
+          <div class="photo-wrap">
+            <!-- Replace the src if your image filename/path differs -->
+            <img class="photo" src="./image/3.jpg" alt="Ảnh chân dung">
+          </div>
+
+          <div class="name editable" contenteditable="true">Lê Trịnh Tú Nữ</div>
+          <div class="role editable" contenteditable="true">Kinh nghiệm 10 năm/ CISO Master </div>
+
+          <div class="section-title">LIÊN HỆ</div>
+          <div class="contact">
+            <div class="editable" contenteditable="true">📞 0987654321</div>
+            <div class="editable" contenteditable="true">✉️ khongcoemail@gmail.com</div>
+            <div class="editable" contenteditable="true">📍 Việt Nam</div>
+          </div>
+
+          <div class="section-title">KĨ NĂNG</div>
+          <div>
+            <span class="pill editable" contenteditable="true">Nhanh nhẹn, mạnh mẽ, độc lập, thông minh, tài giỏi, sức khỏe phi thường</span>
+            <span class="pill editable" contenteditable="true">Làm việc nhóm tốt, quản lí tốt, lãnh đạo tốt</span>
+            <span class="pill editable" contenteditable="true">Phân tích tình huống tốt, tư duy tốt, kiến thức sâu rộng</span>
+          </div>
+
+          <div class="section-title">NGÔN NGỮ</div>
+          <div> 
+          <span class="pill editable" contenteditable="true"> Tiếng Việt, Tiếng Anh, Tiếng Nhật, Tiếng Hàn, Tiếng Tây Ban Nha, Tiếng Pháp, Tiếng Trung </span>
+          <div>
+        </aside>
+
+        <!-- MAIN: edit sections here -->
+        <main class="main">
+          <div class="section-title">TÓM TẮT</div>
+          <div class="summary editable" contenteditable="true">Một cô giái năng động với niềm yêu thích đặc biệt với công nghệ</div>
+
+          <div style="height:12px"></div>
+
+          <div class="section-title">KINH NGHIỆM LÀM VIỆC</div>
+
+          <article class="job">
+            <h4 class="editable" contenteditable="true">SMDB Company</h4>
+            <div class="meta editable" contenteditable="true">5 năm | Mĩ</div>
+            <ul class="list editable" contenteditable="true">
+              <li>Bưng trà cho xếp</li>
+              <li>Giám sát bảo mật an ninh công ty</li>
+            </ul>
+          </article>
+
+          <article class="job">
+            <h4 class="editable" contenteditable="true">Qihoo 360</h4>
+            <div class="meta editable" contenteditable="true">5 năm | Trung</div>
+            <ul class="list editable" contenteditable="true">
+              <li>Bưng trà cho xếp</li>
+              <li>Giám sát bảo mật an ninh công ty, lập kế hoạch bảo vệ chiến lược, quản lí hoạt động bảo mật</li>
+              <li>Nguyên cứu phát triển các phần mềm, phương thức bảo mật tiên tiến</li>
+            </ul>
+          </article>
+
+          <div class="section-title">Giáo sư</div>
+          <div class="editable" contenteditable="true">
+            <strong>Bằng cử nhân công nghệ thông tin / An toàn thông tin</strong> — HCMUE<br>
+            <span class="meta">2031</span>
+          </div>
+
+          <div style="height:12px"></div>
+
+          <div class="section-title">DỰ ÁN & HOẠT ĐỘNG</div>
+          <div class="editable" contenteditable="true">
+            Lập trình game kiếm 100 triệu đô, Đánh sập web trường HCMUS, Thiết kế hệ thống bảo mật đa chiều không thể phá giải 100% 
+          </div>
+
+          <div style="height:18px"></div>
+
+          <div class="section-title">Xem phim sét, chơi game</div>
+
+        </main>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

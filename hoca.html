@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Bể cá của Tuân</title>
+<style>
+body{display:flex;flex-direction:column;align-items:center;gap:12px;font-family:Arial,Helvetica,sans-serif;padding:24px;background:#f0f6fb}
+.sand {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 18%; 
+  background: linear-gradient(to top, #d9c089, #e7d6aa);
+  opacity: 0.9;
+  pointer-events: none; 
+}
+
+.seaweed {
+  position: absolute;
+  bottom: 0;
+  pointer-events: none;
+  opacity: 0.95;
+}
+
+.bubble {
+  position: absolute;
+  bottom: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  box-shadow: 0 0 6px rgba(255,255,255,0.9);
+  opacity: 0;
+  animation: rise 4s linear infinite;
+}
+
+@keyframes rise {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(-350px) scale(1);
+    opacity: 0;
+  }
+}
+
+.tank {
+  width: 1000px;
+  height: 550px;
+
+  border-left: 9px solid rgba(180,220,255,0.0);
+  border-right: 9px solid rgba(180,220,255,0.0);
+  border-bottom: 9px solid rgba(180,220,255,0.0);
+
+  /* không có border-top */
+
+  background: linear-gradient(180deg, rgba(255,255,255,0.4), rgba(255,255,255,0.15));
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+  position: relative;
+  overflow: hidden;
+} 
+.water{position:absolute;left:0;right:0;bottom:0;height:75%;background:rgba(0,120,255,1);background:linear-gradient(#3f90ffcc,#2568ffd9);}
+.water:after{content:"";position:absolute;left:0;right:0;top:0;height:100%;opacity:0.06;background-image:radial-gradient(circle at 20% 10%, rgba(255,255,255,0.8) 0, transparent 10%),radial-gradient(circle at 80% 70%, rgba(255,255,255,0.6) 0, transparent 12%)}
+.fish{position:absolute;will-change:transform,left;user-select:none}
+.label{font-size:20px;color:#113;letter-spacing:0.2px}
+</style>
+</head>
+<body>
+<div class="tank" id="tank">
+<div class="water" id="water">
+    <div class="sand"></div>
+</div>
+</div>
+<div class="label"> Bể cá của Tuân</div>
+<script>
+const tank = document.getElementById('tank');
+const water = document.getElementById('water');
+const fishCount = 4;
+const fishes = [];
+for(let i=1;i<=fishCount;i++){
+ const img = document.createElement('img');
+ img.className = 'fish';
+ img.draggable = false;
+ img.style.height = (80 + Math.random()*100) + 'px';
+ img.src = `image/fish${i}.png`;
+ img.onerror = function(){ if(!this._tried){this._tried=true; this.src=`image/fish${i}.jpg`} };
+ water.appendChild(img);
+ fishes.push({el:img,x:0,y:0,w:0,h:0,dir:Math.random()>0.5?1:-1,speed:30+Math.random()*80});
+}
+function placeFish(){
+ const rect = water.getBoundingClientRect();
+ fishes.forEach((f,idx)=>{
+ f.w = f.el.getBoundingClientRect().width || parseFloat(getComputedStyle(f.el).height)*1.5;
+ f.h = f.el.getBoundingClientRect().height || 40;
+ f.x = Math.random()*(rect.width - f.w);
+ const minY = 5; 
+ const maxY = rect.height * 0.8 - f.h;  // cá chỉ bơi 60% phía trên
+ f.y = minY + Math.random() * (Math.max(0, maxY - minY));
+ f.el.style.left = f.x + 'px';
+ f.el.style.top = f.y + 'px';
+ if(f.dir<0){f.el.style.transform = 'scaleX(-1)'} else {f.el.style.transform = 'scaleX(1)'}
+ });
+}
+function resizeAndPlace(){
+ fishes.forEach(f=>{
+ f.w = f.el.getBoundingClientRect().width || parseFloat(getComputedStyle(f.el).height)*1.5;
+ f.h = f.el.getBoundingClientRect().height || 40;
+ });
+ placeFish();
+}
+window.addEventListener('load',()=>{resizeAndPlace(); last = performance.now(); loop(last);});
+window.addEventListener('resize',()=>{placeFish();});
+let last = 0;
+function loop(timestamp){
+ const rect = water.getBoundingClientRect();
+ const dt = (timestamp - last) / 1000 || 0.016;
+ fishes.forEach(f=>{
+ f.x += f.dir * f.speed * dt;
+ if(f.x <= 0){f.x = 0; f.dir = 1; f.el.style.transform = 'scaleX(1)'}
+ if(f.x + f.w >= rect.width){f.x = Math.max(0,rect.width - f.w); f.dir = -1; f.el.style.transform = 'scaleX(-1)'}
+ f.el.style.left = f.x + 'px';
+ f.el.style.top = Math.max(0,Math.min(rect.height - f.h, f.y)) + 'px';
+ });
+ last = timestamp;
+ requestAnimationFrame(loop);
+}
+function createBubble() {
+  const bubble = document.createElement("div");
+  bubble.className = "bubble";
+  const rect = water.getBoundingClientRect();
+  bubble.style.left = Math.random() * (rect.width - 10) + "px";
+  const size = 10 + Math.random() * 20;
+  bubble.style.width = size + "px";
+  bubble.style.height = size + "px";
+  bubble.style.animationDuration = (3 + Math.random() * 3) + "s";
+  water.appendChild(bubble);
+  setTimeout(() => {
+    bubble.remove();
+  }, 6000);
+}
+setInterval(createBubble, 400);
+const seaweedCount = 5;  // số lượng tảo
+const rect = water.getBoundingClientRect();
+const gap = rect.width / (seaweedCount + 1); // khoảng cách đều
+
+for (let i = 1; i <= seaweedCount; i++) {
+    const sw = document.createElement('img');
+    sw.className = 'seaweed';
+    sw.src = `image2/sw${i}.png`;
+
+    // kích thước tảo
+    sw.style.height = (100 + Math.random() * 10) + 'px';
+
+    // vị trí đều (không trùng nhau)
+    sw.style.left = (gap * i - 200) + "px"; 
+
+    water.appendChild(sw);
+}
+
+
+</script>
+</body>
+</html>
